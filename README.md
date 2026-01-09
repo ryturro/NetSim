@@ -1,2 +1,2 @@
-# NetSim-
-Symulacjia sieci lini produkcyjnej q
+# NetSim
+Symulacjia sieci lini produkcyjnej
