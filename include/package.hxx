@@ -1,3 +1,6 @@
+#ifndef PACKAGE_HXX
+#define PACKAGE_HXX
+
 #include "types.hxx"
 #include <set>
 
@@ -17,3 +20,5 @@ private:
     static std::set<ElementID> used_ID;
     static std::set<ElementID> freed_ID;
 };
+
+#endif
