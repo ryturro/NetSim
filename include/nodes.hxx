@@ -67,6 +67,7 @@ public:
     PackageSender(PackageSender&&)=default;
 
     ReceiverPreferences receiver_preferences_; 
+    RecivePreferences receiver_preferences_; 
 
     void send_package(); 
 
@@ -156,3 +157,4 @@ private:
    ElementID id_;
    std::unique_ptr<IPackageStockpile> d_;
 };
+
