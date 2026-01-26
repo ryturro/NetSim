@@ -13,6 +13,9 @@ void ReceiverPreferences::add_receiver(IPackageReceiver* r) {
         preferences_[r] = 1.0 / denominator;
     }
 }
+void Storehouse::receive_package(Package &&p){
+    d_ ->push(std::move(p));
+}
 
 void ReceiverPreferences::remove_receiver(IPackageReceiver* r) {
     
@@ -66,12 +69,7 @@ void Worker::do_work(Time t){
 }
 
 void Ramp::deliver_goods(Time t){
-    if(!buffer_){
+    if((t-1)%di_==0){
         push_package(Package());
-        buffer_.emplace(id_);
-        t_=t;
-        }
-    if(t-di_==t_){
-        push_package(Package());
-        }
     }
+}
