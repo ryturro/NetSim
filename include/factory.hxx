@@ -4,6 +4,8 @@
 #include "nodes.hxx"
 #include "storage_types.hxx"
 
+template<class Node>
+
 class NodeCollection{
 public:
     using container = std::list<Node>;
@@ -39,4 +41,22 @@ public:
 private:
     container Kontyner
 };
+
+template<class Node>
+class Factory{
+    private:
+        void remove_reciver(NodeCollection<Node>&,collection,ElementID);
+
+    public:
+        bool is_consistent() const;
+
+        void do_deliveries(Time);
+
+        void do_package_passing();
+
+        void do_work(Time);
+
+
+};
+
 #endif //NETSIM_FACTORY_HXX
