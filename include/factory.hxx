@@ -3,7 +3,8 @@
 
 #include "nodes.hxx"
 
-template<class Node>
+
+bool has_reachable_storehouse(const PackageSender* sender, std::map<const PackageSender*, NodeColor>& node_colors);
 
 template<class Node>
 
@@ -12,22 +13,22 @@ public:
 
     using container = std::list<Node>;
 
-    using const_iterator = container::const_iterator;
+    using const_iterator = typename container::const_iterator;
 
-    using iterator = container::iterator;
+    using iterator = typename container::iterator;
 
-    void add(Node&& node) {container.emplace_back(std::move(node))}
+    void add(Node&& node) {Kontyner.emplace_back(std::move(node));}
 
-    void remove_by_id(ElementID id) {Kontyner.remove_if([id](const Node& elem) { return elem.get_id() == id; })}
+    void remove_by_id(ElementID id) {Kontyner.remove_if([id](const Node& elem) { return elem.get_id() == id; });}
 
-    NodeCollection<Node>::iterator find_by_id(ElementID id){
-    return std::find_if(Kontyner.begin(), Kontyner.end(), [id](const Node& node) { 
-        return node.get_id() == id; 
-    });+
+    iterator find_by_id(ElementID id){
+        return std::find_if(Kontyner.begin(), Kontyner.end(), [id](const Node& node) { 
+            return node.get_id() == id; 
+        });
     }
 
-    NodeCollection<Node>::const_iterator find_by_id(ElementID id) const {
-    return std::find_if(Kontyner.begin(), Kontyner.end(), [id](const Node& node) { 
+    const_iterator find_by_id(ElementID id) const {
+    return std::find_if(Kontyner.cbegin(), Kontyner.cend(), [id](const Node& node) { 
         return node.get_id() == id; 
     });
     }

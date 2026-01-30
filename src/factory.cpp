@@ -1,23 +1,31 @@
 #include "factory.hxx"
 #include "nodes.hxx"
+#include <stdexcept>
 
 bool Factory::is_consistent() const {
   std::map<const PackageSender*, NodeColor> kolor;
 
     auto set_unvisited_colors = [&kolor](const auto& container) {
-        for (const auto& item : container) {
+        for (auto it = container.cbegin(); it != container.cend(); ++it) {
+            const auto& item = *it;
             const PackageSender* sender = dynamic_cast<const PackageSender*>(&item);
-            kolor[sender] = NodeColor::UNVISITED;
+            if(sender){
+                kolor[sender] = NodeColor::UNVISITED;
+            }
+            
         }
     };
 
-    set_unvisited_colors(cont_w);
-    set_unvisited_colors(cont_r);
+    set_unvisited_colors(worker_kontyner);
+    set_unvisited_colors(ramp_kontyner);
 
     try {
-        for (const auto& ramp : cont_r) {
+        for (auto it = ramp_kontyner.cbegin(); it != ramp_kontyner.cend(); ++it) {
+            const auto& ramp = *it;
             const PackageSender* sender = dynamic_cast<const PackageSender*>(&ramp);
-            has_reachable_storehouse(sender, kolor);
+            if(sender){
+                has_reachable_storehouse(sender, kolor);
+            }
         }
     } catch (const std::logic_error&) {
         return false;
@@ -27,19 +35,19 @@ bool Factory::is_consistent() const {
 
 };
 void Factory::do_deliveries(Time t){
-    for(auto &ramp : cont_r)
+    for(auto &ramp : ramp_kontyner)
         ramp.deliver_goods(t);
 }
 
 void Factory::do_work(Time t){
-    for(auto &worker : cont_w)
+    for(auto &worker : worker_kontyner)
         worker.do_work(t);
 }
 
-void do_package_passing(){
-    for(auto &ramp :cont_r)
+void Factory::do_package_passing(){
+    for(auto &ramp : ramp_kontyner)
         ramp.send_package();
-    for(auto &Worker :cont_w)
+    for(auto &Worker :worker_kontyner)
         Worker.send_package();
 }
 template<class Node>

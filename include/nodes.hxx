@@ -10,6 +10,9 @@ enum class ReceiverType{
     WORKER,
     STOREHOUSE
 };
+enum class NodeColor{
+    UNVISITED, VISITED, VERIFIED
+};
 
 class IPackageReceiver{
 public:
