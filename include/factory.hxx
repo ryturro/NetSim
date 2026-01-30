@@ -5,8 +5,6 @@
 
 template<class Node>
 
-template<class Node>
-
 class NodeCollection{
 public:
 
